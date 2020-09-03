@@ -1,0 +1,196 @@
+﻿1
+00:00:00,000 --> 00:00:05,266
+In this video we discuss our solution to the VAST 2020 Mini Challenge 1.
+
+2
+00:00:05,266 --> 00:00:12,399
+In order to solve the challenge we built a series of tools. We will show these tools first before discussing our solutions
+
+3
+00:00:12,399 --> 00:00:12,400
+&nbsp;
+
+4
+00:00:12,400 --> 00:00:22,800
+We started by using simple node-link diagrams to engage in exploratory comparison of the template and candidate graphs. The different
+
+5
+00:00:22,800 --> 00:00:28,000
+shapes of the node indicate the node type. Circles, for example, represent persons while stars represent travel destinations.  The color
+
+6
+00:00:28,000 --> 00:00:33,233
+of a node indicates an assigned location.  We filtered edge types using the checkboxes.
+
+7
+00:00:33,233 --> 00:00:41,299
+In order to derive graph structural metrics, we used graphlets which are structural patterns within a limited number of nodes of a graph.
+
+8
+00:00:41,299 --> 00:00:41,300
+&nbsp;
+
+9
+00:00:41,300 --> 00:00:45,333
+Graphlets allowed us to compare the connectivity structure between the template and the candidates, and doing pairwise node
+
+10
+00:00:45,333 --> 00:00:49,366
+matching to find good matches in the big graph.
+
+11
+00:00:49,366 --> 00:00:52,332
+We compared the graphlet frequencies of the persons between the template and the candidate graphs, using heatmaps…
+
+12
+00:00:52,332 --> 00:00:52,333
+&nbsp;
+
+13
+00:00:52,333 --> 00:00:55,333
+&nbsp;
+
+14
+00:00:55,333 --> 00:01:00,066
+…and using global graphlet frequencies, to see if there are some correlations.
+
+15
+00:01:00,066 --> 00:01:04,066
+In order to analyze activity patterns in the data we created custom temporal views. This one here shows detailed temporal activity in each
+
+16
+00:01:04,066 --> 00:01:08,066
+graph. Edge types are encoded by color and people sorted by their number of activities (edges).
+
+17
+00:01:08,066 --> 00:01:17,066
+We also created a temporal series view by counting the number of edges with temporal information for each day. This helped us
+
+18
+00:01:17,066 --> 00:01:26,099
+estimate the similarity of candidate graphs and detect a time shift compared to the template graph.
+
+19
+00:01:26,099 --> 00:01:26,100
+&nbsp;
+
+20
+00:01:26,100 --> 00:01:48,433
+This visualization aims at evaluating how good a match is based on similarity measures and the communication channels. The top row of
+
+21
+00:01:48,433 --> 00:01:59,599
+circles are template nodes. The bottom row of circles are matched nodes in a candidate.  In between each pair of nodes are 6 rows of
+
+22
+00:01:59,599 --> 00:01:59,600
+&nbsp;
+
+23
+00:01:59,600 --> 00:02:05,166
+similarity.  These 6 rows allow to give an overview of the strength of a match. Arcs correspond to communications by phone or
+
+24
+00:02:05,166 --> 00:02:07,966
+mail.  On the top, the arcs are edges in the template graph.  On the bottom in the matched graph.  The arc color indicates the agreement
+
+25
+00:02:07,966 --> 00:02:09,366
+of the two graphs. A green arc is common to both graphs while a red or gray arc is missing from one graph or the other.  Finally, the
+
+26
+00:02:09,366 --> 00:02:10,066
+bottom graph plots the edge colors in relation with the time to ease the identification of matches that perform well only for a certain
+
+27
+00:02:10,066 --> 00:02:10,766
+period of time.
+
+28
+00:02:10,766 --> 00:02:16,499
+Next, we show the answers we arrived at for Mini Challenge 1.
+
+29
+00:02:16,499 --> 00:02:16,500
+&nbsp;
+
+30
+00:02:16,500 --> 00:02:21,200
+Graphlets and custom temporal visualizations allowed us to choose an answer for Question 1. Both confirmed that Candidate Graph 2 had
+
+31
+00:02:21,200 --> 00:02:25,900
+the closest similarity.
+
+32
+00:02:25,900 --> 00:02:33,366
+For Question 2 we applied a crawling algorithm to extract subgraphs from the seeding edges. The results can be evaluated
+
+33
+00:02:33,366 --> 00:02:37,099
+using a node-link view or the person-matching-view tool. We can see that the subgraphs found have a lot of common edges
+
+34
+00:02:37,099 --> 00:02:37,100
+&nbsp;
+
+35
+00:02:37,100 --> 00:02:40,866
+with the template.
+
+36
+00:02:40,866 --> 00:02:47,466
+For Question 3, we were able to find a perfect match mainly by looking for nodes with a very similar demographics profile, or whose travel
+
+37
+00:02:47,466 --> 00:02:54,099
+records, shifted by 14 days, included all the travels of nodes in the template graph.
+
+38
+00:02:54,099 --> 00:02:54,100
+&nbsp;
+
+39
+00:02:54,100 --> 00:03:05,366
+For Question 4, we created an extended subgraph from the matched graph we found. We found a communication peak on the 11th
+
+40
+00:03:05,366 --> 00:03:10,999
+and 12th of November. We discovered that there were 7 days without communication after which 8 people communicated
+
+41
+00:03:10,999 --> 00:03:11,000
+&nbsp;
+
+42
+00:03:11,000 --> 00:03:13,800
+extensively. We suspect that those 8 people along with 4 more that communicated in the previous 2 days are responsible for the
+
+43
+00:03:13,800 --> 00:03:16,633
+incident.
+
+44
+00:03:16,633 --> 00:03:26,133
+We faced two main challenges : First the graphlets computation was costly in the big graph, and finding a good distance was not
+
+45
+00:03:26,133 --> 00:03:30,866
+trivial. Second, choosing the best distance or combination of distances was hard given all
+
+46
+00:03:30,866 --> 00:03:35,632
+the possibilities.This is why we also built a manual matching tool in the end of our analysis process.
+
+47
+00:03:35,632 --> 00:03:35,633
+&nbsp;
+
+48
+00:03:35,633 --> 00:03:42,533
+The manual matching tool is composed of multiple views. It works by allowing to select possible node pairs from a sortable list of
+
+49
+00:03:42,533 --> 00:03:49,466
+similarity measures. Each node pair can be studied in detail before deciding to incorporate it in the final match or drop it.
+

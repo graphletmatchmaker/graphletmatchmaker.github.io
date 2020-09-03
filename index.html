@@ -3,121 +3,264 @@
 <title>Graphlet Match Maker</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
+</link>
 <style>
-body,h1,h2,h3,h4,h5 {font-family: sans-serif}
-.wrapper {
-    max-width:980px;
-	margin: 0 auto;
-}
-.column {
-    width: 100%;
-	float: left;
-}
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: sans-serif
+  }
 
-a {
-    color: darkslategray;
+  .wrapper {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  .column {
+    width: 100%;
+    float: left;
+  }
+
+  a {
+    color: steelblue;
+    text-decoration: none;
+    transition: box-shadow 0.2s ease;
     text-decoration-line: underline;
     text-decoration-style: dotted;
-    text-decoration-thickness: 2px;
-}
+  }
 
-blockquote {
-  font: 14px/22px normal helvetica, sans-serif;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 50px;
-  padding-left: 15px;
-  border-left: 3px solid #ccc;
-} 
+  a:hover {
+    opacity: .8;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-thickness: 1px;
+  }
 
-a.source {
+  blockquote {
+    font: 14px/22px normal helvetica, sans-serif;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 50px;
+    padding-left: 15px;
+    border-left: 3px solid #ccc;
+  }
+
+  a.source {
     font-style: italic;
     color: lightslategray;
     font-size: small;
     text-decoration: none;
+  }
 
-    
-}
-
-footer  {
+  footer {
     font-style: italic;
     text-align: center;
     color: lightslategray;
     text-decoration: none;
     font-size: smaller;
 
-}
+  }
 
+  .floating-card {
+    text-decoration: none;
+    flex-grow: 1;
+    flex-basis: 0;
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+    padding: 16px;
+    border: 1px solid #ddd;
+    transition: box-shadow 0.2s ease;
+  }
+
+  .floating-card:not(:last-child) {
+    margin-right: 10px;
+    margin-left: 0px;
+  }
+
+  .floating-card:hover {
+    box-shadow: lightslategray 2px 2px 11px;
+  }
+
+  .floating-card>p {
+    font-size: 0.75em;
+    margin: 0.7em 0;
+    line-height: 1.2;
+  }
+
+  .floating-card .link {
+    margin-right: 0.5em;
+    white-space: nowrap;
+    font-size: 0.8em;
+    color: darkslategray;
+  }
+
+  .floating-card .link:hover {
+    margin-right: 0.5em;
+    white-space: nowrap;
+    font-size: 0.8em;
+    color: darkslategray;
+  }
+
+  .card-title {
+    margin: 0 0 0.6em 0;
+    font-size: 0.9em;
+    font-weight: bold;
+    line-height: 1;
+  }
+
+  .card-details {
+    color: slategray
+  }
+
+  .card-container {
+    font-size: 1.1em;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1.5em
+  }
+
+  .screenshot {
+    display: block;
+    width: 100%;
+    height: 0;
+    padding-top: 60%;
+    border: 1px solid lightgray;
+    background-size: cover;
+    background-position: top left;
+  }
+
+  .fas {
+    margin-right: 0.3em;
+  }
+
+  video {
+    margin: 0 auto;
+    display: block;
+  }
 </style>
+
 <body>
 
-<div class="wrapper">
+  <div class="wrapper">
 
-<header> 
-  <h1><b>Graphlet Match Maker</b></h1>
-  <p>GraphletMatchMaker is a set of tools developped as part of our submission to the <a href="https://vast-challenge.github.io/2020/">Visual Analytics Science and Technology (VAST) Challenge 2020</a> (<a href="https://vast-challenge.github.io/2020/MC1.html">Mini Challenge 1</a>, entry name AVIZ-Tovanich-MC1). </p>
-</header>
+    <header>
+      <h1><b>Graphlet Match Maker</b></h1>
+      <p>GraphletMatchMaker is a set of tools developed as part of our submission to the <a
+          href="https://vast-challenge.github.io/2020/">Visual Analytics Science and Technology (VAST) Challenge
+          2020</a> (<a href="https://vast-challenge.github.io/2020/MC1.html">Mini Challenge 1</a>, entry name
+        AVIZ-Tovanich-MC1). </p>
+    </header>
 
-<!-- <video width="320" height="240" controls>
-    <source src="./AVIZ-Tovanich-MC1/video/VastChallenge2020-MC1-Tovanich-Final.mkv" type='video/mp4'>
-    <track label="English" kind="subtitles" srclang="en" src="./AVIZ-Tovanich-MC1/video/...." default>
-  Your browser does not support the video tag.
-  </video> 
- -->
+    <video width="75%" controls>
+      <source src="./AVIZ-Tovanich-MC1/video/VastChallenge2020-MC1-Tovanich-Final.mp4" type='video/mp4'>
+      <track label="English" kind="subtitles" srclang="en"
+        src="./AVIZ-Tovanich-MC1/video/VASTChallenge Video-ClosedCaptions.vtt" default>
+      Your browser does not support the video tag.
+    </video>
 
-<div class="column">
-  <div>
-    <!-- <img src="/images/header.jpg" alt="Screenshot" style="width:100%"> -->
-    <div>
-      <h3>Context of Mini Challenge 1</h3>
-    </div>
+    <div class="column">
+      <div>
+        <!-- <img src="/images/header.jpg" alt="Screenshot" style="width:100%"> -->
+        <div>
+          <h3>Context of Mini Challenge 1</h3>
+          <p>The main objective of the mini-challenge was to identify a specific group of people in a large network,
+            based on an established profile of interaction. </p>
+          <blockquote>In response to an increase in malicious cyber-attacks, numerous “white hat” hacker organizations
+            have taken it upon themselves to fight back to protect the global internet. As the attacks became more and
+            more aggressive, one white hat group, who has so far stayed anonymous, accidentally launched a cyber event
+            that took down the global Internet. The world’s experts are having difficulty understanding what happened
+            and need to get in touch with the group so the effects on the internet can be neutralized and services
+            restored. The only hope for a solution is a cyber think-tank – Center for Global Cyber Strategy, or CGCS –
+            that may hold the key to identifying the group that caused the malfunction. The CGCS maintains awareness of
+            various white-hat hacker groups. <a class="source"
+              href="https://vast-challenge.github.io/2020/index.html"><i class="fas fa-angle-double-right">
+              </i>Source</a>
+          </blockquote>
 
-    <div>
-        <p>The main objective of the mini-challenge was to identify a specific group of people in a large network, based on an established profile of interaction. </p>
-    </div>
+          <blockquote>Center for Global Cyber Strategy (CGCS) researchers have used the data donated by the white hat
+            groups to create anonymized profiles of the groups. One such profile has been identified by CGCS
+            sociopsychologists as most likely to resemble the structure of the group who accidentally caused this
+            internet outage. You have been asked to examine CGCS records and identify those groups who most closely
+            resemble the identified profile. <a class="source" href="https://vast-challenge.github.io/2020/MC1.html"><i
+                class="fas fa-angle-double-right"> </i>Source</a>
+          </blockquote>
 
-    <div >
-        <blockquote>In response to an increase in malicious cyber-attacks, numerous “white hat” hacker organizations have taken it upon themselves to fight back to protect the global internet. As the attacks became more and more aggressive, one white hat group, who has so far stayed anonymous, accidentally launched a cyber event that took down the global Internet. The world’s experts are having difficulty understanding what happened and need to get in touch with the group so the effects on the internet can be neutralized and services restored. The only hope for a solution is a cyber think-tank – Center for Global Cyber Strategy, or CGCS – that may hold the key to identifying the group that caused the malfunction. The CGCS maintains awareness of various white-hat hacker groups. <a class="source" href="https://vast-challenge.github.io/2020/index.html">Source</a>
-        </blockquote>
-        
-      <blockquote>Center for Global Cyber Strategy (CGCS) researchers have used the data donated by the white hat groups to create anonymized profiles of the groups. One such profile has been identified by CGCS sociopsychologists as most likely to resemble the structure of the group who accidentally caused this internet outage. You have been asked to examine CGCS records and identify those groups who most closely resemble the identified profile. <a class="source" href="https://vast-challenge.github.io/2020/MC1.html">Source</a>
-    </blockquote> 
-    
-    </div>
+        </div>
 
-    <div>
-        <h3>Submission package</h3>
-      </div>
-  
-      <div >
-        <p>  Submission package: <a href="./AVIZ-Tovanich-MC1/index.htm">report</a> (<a href="./AVIZ-Tovanich-MC1/report.pdf">pdf</a>), <a href="./AVIZ-Tovanich-MC1/video/VastChallenge2020-MC1-Tovanich-Final.wmv">video</a></p>
-      
-      </div>
-      <div >
+        <div>
+          <h3>Submission package</h3>
+          <p> Submission package: <a href="./AVIZ-Tovanich-MC1/index.htm">report</a> (<a
+              href="./AVIZ-Tovanich-MC1/report.pdf">pdf</a>), <a
+              href="./AVIZ-Tovanich-MC1/video/VastChallenge2020-MC1-Tovanich-Final.wmv">video</a></p>
+
+        </div>
+        <div>
+          <h3>Interactive tools</h3>
           <p>Live demo of the interactive tools developed as part of our submission:</p>
-        <ul>
-            <li>
-                <a href="./AVIZ-Tovanich-MC1/node-link-view/networks.html">node-link views</a>
-            </li>
-            <li>
-                <a href="./AVIZ-Tovanich-MC1/person-pairing-view/candidates.html">person-match for candidate graphs</a>
-            </li>
-            <li>
-                <a href="./AVIZ-Tovanich-MC1/person-pairing-view/single.html">person-match for subgraph extracted from seed 1 and 3</a>
-            </li>
-            <li>
-                <a href="./AVIZ-Tovanich-MC1/matchmaker/index.html">manual matchmaker</a>
-            </li>
-        </ul>
+          <div class="card-container">
+            <div class="floating-card">
+              <span class="card-title">Node-link views</span>
+              <a href="./AVIZ-Tovanich-MC1/node-link-view/networks.html" class="screenshot"
+                style="background-image: url('./images/tool1.png')"></a>
+              <p>Help compare the structure of the template and other graphs, showing all node types and edge types.
+              <p class="card-details">List of
+                graphs: template (CGCS-Template), candidates (Q1-Graph1 to Q1-Graph5), proposed matches extracted
+                from seed 1 and seed 3 (Q2-Seed1, Q2-Seed3) and two other proposed matches.</p>
+              </p>
+              <div>
+                <a href="./AVIZ-Tovanich-MC1/node-link-view/networks.html" class="link"><i
+                    class="fas fa-link"></i>Node-link views
+                </a>
+              </div>
+            </div>
+            <div class="floating-card">
+              <span class="card-title">Node matching view</span>
+              <a href="./AVIZ-Tovanich-MC1/person-pairing-view/single.html" class="screenshot"
+                style="background-image: url('./images/tool3.png')"></a>
+              <p>Help look at the consistency of a match for the template graph, showing the similarity of
+                person nodes and the consistency of their communication edges. </p>
+              <p class="card-details">For candidate graphs: show multiple matches based on different metrics. For
+                extracted graph: show
+                matches extracted from seed 1 and 3 as well as the best match.</p>
+              <div>
+                <a href="./AVIZ-Tovanich-MC1/person-pairing-view/candidates.html" class="link"><i
+                    class="fas fa-link"></i>Match for candidate graphs</a>
+                <a href="./AVIZ-Tovanich-MC1/person-pairing-view/single.html" class="link"><i
+                    class="fas fa-link"></i>Match extracted from large graph</a>
+              </div>
+            </div>
+            <div class="floating-card">
+              <span class="card-title">Manual node-matching tool</span>
+              <a href="./AVIZ-Tovanich-MC1/matchmaker/index.html" class="screenshot"
+                style="background-image: url('./images//tool4.png')"></a>
+              <p>Help manually compose a match for the template graph starting from an initial set of one or more
+                matched nodes.</p>
+              <p class="card-details">Can be used to manually match three candidate graphs (Graph1, 2, 3), the best
+                match graph, the graph extracted from seed 1 and 3 and offer three other starting sets.</p>
+              <div>
+                <a href="./AVIZ-Tovanich-MC1/matchmaker/index.html" class="link"><i class="fas fa-link"></i>Manual
+                  node-matching tool</a>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
       </div>
-  </div>
 
-  <!-- Details on tools used and approach, including source code and how to run it  -->
+      <!-- Details on tools used and approach, including source code and how to run it  -->
 
-<footer>
-    <!-- Affiliations -->
-  <p><a href="https://aviz.fr">AVIZ</a> (Université Paris-Saclay, CNRS, Inria), <a href="https://i3.cnrs.fr/en/">I3</a> (CNRS, Telecom Paris, Institut Polytechnique de Paris)</p>
-</footer>
+      <footer>
+        <!-- Affiliations -->
+        <p><a href="https://aviz.fr">AVIZ</a> (Université Paris-Saclay, CNRS, Inria), <a
+            href="https://i3.cnrs.fr/en/">I3</a> (CNRS, Telecom Paris, Institut Polytechnique de Paris)</p>
+      </footer>
 
 </body>
+
 </html>
