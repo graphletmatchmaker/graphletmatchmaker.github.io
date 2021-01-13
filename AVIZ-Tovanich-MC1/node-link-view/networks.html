@@ -147,10 +147,13 @@
         d3.json("data/Q1-Graph3.json"),
         d3.json("data/Q1-Graph4.json"),
         d3.json("data/Q1-Graph5.json"),
-        d3.json("data/Q2-Seed1.json"),
-        d3.json("data/Q2-Seed3.json"),
-        d3.json("data/Q3-demographics_matched_with_node66.json"),
-        d3.json("data/Q4-matched_nodes_intra.json"),
+        d3.json("data/Q2-GreedyGraphletSeed1.json"),
+        d3.json("data/Q2-GreedyFinancialSeed1.json"),
+        d3.json("data/Q2-GreedyFinancialTravelSeed1.json"),
+        d3.json("data/Q2-GreedyGraphletSeed3.json"),
+        d3.json("data/Q2-GreedyFinancialSeed3.json"),
+        d3.json("data/Q2-GreedyFinancialTravelSeed3.json"),
+
     ]).then(function(files) {
         files.forEach(function(data, index) {
             createGraph(data, sel_eTypes);
