@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.8.json",
-  "width": 800,
+  "width": 600,
   "height": 300,
   "padding": 0,
   "signals": [
@@ -9,33 +9,32 @@
       "update": "data('pairing').length"
     },
     {
+      "name": "greenEdges",
+      "update": "data('green-edges').length"
+    },
+    {
+      "name": "grayEdges",
+      "update": "data('displayed-candidate-edges').length"
+    },
+    {
+      "name": "redEdges",
+      "update": "data('displayed-template-edges').length - greenEdges"
+    },
+    {
       "name": "totalNodes",
       "value": 51
     },
     {
-      "name": "folder",
-      "value": "seed1-travels-demo-time-greedy2",
-      "bind": {
-        "name": "Candidate graph: ",
-        "input": "select",
-        "options": [
-          "seed1-travels-demo-time-greedy2",
-          "seed3-travels-demo-time-greedy2",
-          "best"
-        ]
-      }
+      "name": "timelineHeight",
+      "value": 30
     },
     {
-      "name": "chartHeight",
-      "value": 50
-    },
-    {
-      "name": "chartWidth",
-      "value": 50
+      "name": "barChartWidth",
+      "value": 60
     },
     {
       "name": "trackWidth",
-      "value": 700
+      "value": 600
     },
     {
       "name": "nodeSize",
@@ -46,32 +45,16 @@
       "value": 2
     },
     {
-      "name": "templateAxisOffset",
-      "value": 40
+      "name": "templateAxisYOffset",
+      "value": 60
     },
     {
-      "name": "candidateAxisOffset",
-      "value": 140
+      "name": "candidateAxisYOffset",
+      "value": 110
     },
     {
-      "name": "timelineOffset",
-      "value": 250
-    },
-    {
-      "name": "legendY",
-      "value": -100
-    },
-    {
-      "name": "orderField",
-      "value": "pairingScoreOrder",
-      "bind": {
-        "name": "Order pairing by: ",
-        "input": "select",
-        "options": [
-          "pairingScoreOrder",
-          "edgeOrder"
-        ]
-      }
+      "name": "timelineYOffset",
+      "value": 160
     }
   ],
   "data": [
@@ -79,27 +62,17 @@
       "name": "sortingMetrics",
       "values": [
         {
-          "value": "demographicsCosine"
+          "value": "Financial profile"
         },
         {
-          "value": "travelJaccard"
+          "value": "Travel profile"
         },
         {
-          "value": "dtwAllEdges"
+          "value": "Graphlet profile"
         },
         {
-          "value": "dtwCommunication"
-        },
-        {
-          "value": "dtwTravel"
-        },
-        {
-          "value": "glPhone-undir5"
-        },
-        {
-          "value": "glEmail-undir5"
+          "value": "Temporal profile"
         }
-      
       ],
       "transform": [
         {
@@ -116,7 +89,7 @@
     {
       "name": "template-edges",
       "url": {
-        "signal": "'data/' + folder + '/template_edges.csv'"
+        "signal": "'data/' + candidateGraphFolder + '/template_edges.csv'"
       },
       "format": {
         "type": "csv"
@@ -141,7 +114,7 @@
     {
       "name": "candidate-edges",
       "url": {
-        "signal": "'data/' + folder + '/candidate_edges.csv'"
+        "signal": "'data/' + candidateGraphFolder + '/candidate_edges.csv'"
       },
       "format": {
         "type": "csv"
@@ -170,7 +143,7 @@
     {
       "name": "pairing",
       "url": {
-        "signal": "'data/' + folder + '/pairing.csv'"
+        "signal": "'data/' + candidateGraphFolder + '/pairing.csv'"
       },
       "format": {
         "type": "csv"
@@ -178,13 +151,14 @@
       "transform": [
         {
           "type": "formula",
-          "expr": "0",
+          "expr": "parseFloat(datum[nodeOrderMode])",
           "as": "score"
         },
         {
           "type": "collect",
           "sort": {
-            "field": "score"
+            "field": "score",
+            "order": "descending"
           }
         },
         {
@@ -193,7 +167,7 @@
             "row_number"
           ],
           "as": [
-            "pairingScoreOrder"
+            "order"
           ]
         }
       ]
@@ -201,7 +175,7 @@
     {
       "name": "template-nodes",
       "url": {
-        "signal": "'data/' + folder + '/template_nodes.csv'"
+        "signal": "'data/' + candidateGraphFolder + '/template_nodes.csv'"
       },
       "format": {
         "type": "csv"
@@ -228,30 +202,15 @@
         },
         {
           "type": "formula",
-          "expr": "datum.pairingObj.pairingScoreOrder",
-          "as": "pairingScoreOrder"
-        },
-        {
-          "type": "window",
-          "sort": {
-            "field": {
-              "signal": "orderField"
-            },
-            "order": "ascending"
-          },
-          "ops": [
-            "row_number"
-          ],
-          "as": [
-            "order"
-          ]
+          "expr": "datum.pairingObj.order",
+          "as": "order"
         }
       ]
     },
     {
       "name": "candidate-nodes",
       "url": {
-        "signal": "'data/' + folder + '/candidate_nodes.csv'"
+        "signal": "'data/' + candidateGraphFolder + '/candidate_nodes.csv'"
       },
       "format": {
         "type": "csv"
@@ -439,6 +398,16 @@
           ]
         }
       ]
+    },
+    {
+      "name": "green-edges",
+      "source": "displayed-template-edges",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.Status == 'common'"
+        }
+      ]
     }
   ],
   "marks": [
@@ -453,13 +422,10 @@
             {
               "type": "fold",
               "fields": [
-                "demographicsCosine",
-                "travelJaccard",
-                "dtwAllEdges",
-                "dtwCommunication",
-                "dtwTravel",
-                "glPhone-undir5",
-                "glEmail-undir5"
+                "Financial profile",
+                "Travel profile",
+                "Graphlet profile",
+                "Temporal profile"
               ],
               "as": [
                 "metric",
@@ -483,30 +449,29 @@
       "scales": [
         {
           "name": "node-position",
-          "type": "band",
+          "type": "point",
           "domain": {
             "data": "template-nodes",
             "field": "order",
             "sort": true
           },
-          "range": [
-            0,
-            {
-              "signal": "trackWidth"
+          "range": {
+            "step": {
+              "signal": "trackWidth/totalNodes"
             }
-          ]
+          }
         }
       ],
       "encode": {
         "enter": {
           "y": {
-            "signal": "templateAxisOffset"
+            "signal": "templateAxisYOffset"
           },
           "x": {
             "value": 0
           },
           "height": {
-            "signal": "candidateAxisOffset-templateAxisOffset"
+            "signal": "candidateAxisYOffset-templateAxisYOffset"
           },
           "width": {
             "signal": "trackWidth"
@@ -544,7 +509,7 @@
                 "value": 1
               },
               "tooltip": {
-                "signal": "{'graph':'Template', 'Id': datum.NodeID, 'Paired to': datum.pairingObj.candidateID, 'pairingScore': datum.pairingObj.score, 'Smoker':datum.F_Smoker, 'Education':datum.F_Education, 'Gas':datum.F_Gas, 'Property':datum.F_Property, 'Mortgage':datum.F_Mortgage, 'Renting':datum.F_Renting, 'Rich':datum.F_Rich }"
+                "signal": "{'Graph':'Template', 'Id': datum.NodeID, 'Paired to': datum.pairingObj.candidateID, 'Country': datum.Country, 'Order from': datum.pairingObj[nodeOrderMode] }"
               }
             },
             "update": {
@@ -590,7 +555,7 @@
                 "value": 1
               },
               "tooltip": {
-                "signal": "{'graph':'Candidate' ,'Id': datum.NodeID, 'Paired to': datum.pairingObj.templateID, 'pairingScore': datum.pairingObj.score, 'Smoker':datum.F_Smoker, 'Education':datum.F_Education, 'Gas':datum.F_Gas, 'Property':datum.F_Property, 'Mortgage':datum.F_Mortgage, 'Renting':datum.F_Renting, 'Rich':datum.F_Rich  }"
+                "signal": "{'Graph':'Template', 'Id': datum.NodeID, 'Paired to': datum.pairingObj.candidateID, 'Country': datum.Country, 'Order from': datum.pairingObj[nodeOrderMode] }"
               }
             },
             "update": {
@@ -599,7 +564,7 @@
                 "field": "order"
               },
               "yc": {
-                "signal": "candidateAxisOffset-templateAxisOffset"
+                "signal": "candidateAxisYOffset-templateAxisYOffset"
               },
               "size": {
                 "signal": "nodeSize*nodeSize"
@@ -645,7 +610,7 @@
                 "value": 0.5
               },
               "strokeWidth": {
-                "signal": "arcWidth"
+                "signal": "arcWidth* datum.eType.length"
               },
               "opacity": {
                 "value": 0.5
@@ -713,7 +678,7 @@
                 "value": 0.5
               },
               "strokeWidth": {
-                "signal": "arcWidth"
+                "signal": "arcWidth*datum.eType.length"
               },
               "opacity": {
                 "value": 0.5
@@ -748,10 +713,10 @@
                 "expr": "min(datum.sourceNode.x, datum.targetNode.x)"
               },
               "sourceY": {
-                "expr": "candidateAxisOffset-templateAxisOffset+nodeSize"
+                "expr": "candidateAxisYOffset-templateAxisYOffset+nodeSize"
               },
               "targetY": {
-                "expr": "candidateAxisOffset-templateAxisOffset+nodeSize"
+                "expr": "candidateAxisYOffset-templateAxisYOffset+nodeSize"
               },
               "shape": "curve"
             }
@@ -772,7 +737,7 @@
                 "value": 1
               },
               "tooltip": {
-                "signal": "{'value':datum.value, 'name':datum.metric, 'templateID':datum.templateID, 'candidateID':datum.candidateID }"
+                "signal": "{'value':datum.value, 'similarity':datum.metric, 'templateID':datum.templateID, 'candidateID':datum.candidateID }"
               }
             },
             "update": {
@@ -798,7 +763,7 @@
                 {
                   "test": "isValid(toNumber(datum.value))",
                   "field": "value",
-                  "scale": "distanceScore"
+                  "scale": "similarityScore"
                 },
                 {
                   "value": "lightgray"
@@ -835,7 +800,7 @@
       ]
     },
     {
-      "name": "barchart",
+      "name": "similarity-bar-chart",
       "type": "group",
       "data": [
         {
@@ -845,43 +810,31 @@
             {
               "type": "aggregate",
               "fields": [
-                "demographicsCosine",
-                "travelJaccard",
-                "dtwAllEdges",
-                "dtwCommunication",
-                "dtwTravel",
-                "glPhone-undir5",
-                "glEmail-undir5"
+                "Financial profile",
+                "Travel profile",
+                "Graphlet profile",
+                "Temporal profile"
               ],
               "ops": [
-                "mean",
-                "mean",
-                "mean",
                 "mean",
                 "mean",
                 "mean",
                 "mean"
               ],
               "as": [
-                "demographicsCosine",
-                "travelJaccard",
-                "dtwAllEdges",
-                "dtwCommunication",
-                "dtwTravel",
-                "glPhone-undir5",
-                "glEmail-undir5"
+                "Financial profile",
+                "Travel profile",
+                "Graphlet profile",
+                "Temporal profile"
               ]
             },
             {
               "type": "fold",
               "fields": [
-                "demographicsCosine",
-                "travelJaccard",
-                "dtwAllEdges",
-                "dtwCommunication",
-                "dtwTravel",
-                "glPhone-undir5",
-                "glEmail-undir5"
+                "Financial profile",
+                "Travel profile",
+                "Graphlet profile",
+                "Temporal profile"
               ],
               "as": [
                 "category",
@@ -923,7 +876,7 @@
           "range": [
             0,
             {
-              "signal": "chartWidth"
+              "signal": "barChartWidth"
             }
           ]
         }
@@ -931,16 +884,16 @@
       "encode": {
         "enter": {
           "y": {
-            "signal": "templateAxisOffset"
+            "signal": "templateAxisYOffset"
           },
           "x": {
-            "signal": "trackWidth"
+            "signal": "matchedNodes*(trackWidth/totalNodes)"
           },
           "height": {
-            "signal": "candidateAxisOffset-templateAxisOffset"
+            "signal": "candidateAxisYOffset-templateAxisYOffset"
           },
           "width": {
-            "signal": "chartWidth"
+            "signal": "barChartWidth"
           },
           "stroke": {
             "value": "white"
@@ -951,7 +904,8 @@
         {
           "orient": "bottom",
           "scale": "xscale",
-          "tickCount": 3
+          "tickCount": 3,
+          "labelFlush": true
         }
       ],
       "marks": [
@@ -984,7 +938,7 @@
             },
             "update": {
               "fill": {
-                "scale": "distanceScore",
+                "scale": "similarityScore",
                 "field": "amount"
               }
             },
@@ -1042,62 +996,6 @@
     {
       "name": "timeline",
       "type": "group",
-      "signals": [
-        {
-          "name": "xmove",
-          "value": 0,
-          "on": [
-            {
-              "events": "window:mousemove",
-              "update": "x()"
-            }
-          ]
-        },
-        {
-          "name": "timeRange",
-          "update": "timeExtent",
-          "on": [
-            {
-              "events": {
-                "signal": "timeZoom"
-              },
-              "update": "[(timeRange[0]+timeRange[1])/2 - timeZoom, (timeRange[0]+timeRange[1])/2 + timeZoom]"
-            },
-            {
-              "events": "@time:dblclick!, @timeBrush:dblclick!",
-              "update": "[timeExtent[0], timeExtent[1]]"
-            },
-            {
-              "events": "[@timeBrush:mousedown, window:mouseup] > window:mousemove!",
-              "update": "[timeRange[0] + invert('timeScale', x()) - invert('timeScale', xmove), timeRange[1] + invert('timeScale', x()) - invert('timeScale', xmove)]"
-            },
-            {
-              "events": "[@time:mousedown, window:mouseup] > window:mousemove!",
-              "update": "[min(timeAnchor, invert('timeScale', x())), max(timeAnchor, invert('timeScale', x()))]"
-            }
-          ]
-        },
-        {
-          "name": "timeZoom",
-          "value": 0,
-          "on": [
-            {
-              "events": "@time:wheel!, @timeBrush:wheel!",
-              "update": "0.5 * abs(span(timeRange)) * pow(1.0005, event.deltaY * pow(16, event.deltaMode))"
-            }
-          ]
-        },
-        {
-          "name": "timeAnchor",
-          "value": 0,
-          "on": [
-            {
-              "events": "@time:mousedown!",
-              "update": "invert('timeScale', x())"
-            }
-          ]
-        }
-      ],
       "data": [
         {
           "name": "communication-by-time",
@@ -1157,19 +1055,19 @@
       "encode": {
         "enter": {
           "y": {
-            "signal": "timelineOffset"
+            "signal": "timelineYOffset"
           },
           "x": {
             "value": 0
           },
           "height": {
-            "signal": "chartHeight"
+            "signal": "timelineHeight"
           },
           "width": {
             "signal": "trackWidth"
           },
           "stroke": {
-            "value": "black"
+            "value": "gray"
           },
           "fill": {
             "value": "white"
@@ -1194,9 +1092,10 @@
         {
           "name": "yscale",
           "type": "linear",
+          "nice": true,
           "range": [
             {
-              "signal": "chartHeight"
+              "signal": "timelineHeight"
             },
             0
           ],
@@ -1204,8 +1103,7 @@
             "data": "communication-by-time",
             "field": "y1"
           },
-          "zero": true,
-          "nice": true
+          "zero": true
         }
       ],
       "axes": [
@@ -1220,31 +1118,24 @@
         {
           "orient": "left",
           "scale": "yscale",
-          "tickCount": 5
+          "tickCount": 2,
+          "labelFlush": true
         }
       ],
       "marks": [
         {
           "type": "rect",
-          "name": "timeBrush",
+          "interactive": false,
           "encode": {
             "enter": {
               "y": {
                 "value": 0
               },
               "height": {
-                "signal": "chartHeight"
+                "signal": "timelineHeight"
               },
               "fill": {
-                "value": "gray"
-              }
-            },
-            "update": {
-              "x": {
-                "signal": "scale('timeScale', timeRange[0])"
-              },
-              "x2": {
-                "signal": "scale('timeScale', timeRange[1])"
+                "value": "firebrick"
               }
             }
           }
@@ -1258,43 +1149,10 @@
                 "value": 0
               },
               "height": {
-                "signal": "chartHeight"
+                "signal": "timelineHeight"
               },
               "fill": {
                 "value": "firebrick"
-              }
-            },
-            "update": {
-              "x": {
-                "signal": "scale('timeScale', timeRange[0])"
-              },
-              "width": {
-                "value": 1
-              }
-            }
-          }
-        },
-        {
-          "type": "rect",
-          "interactive": false,
-          "encode": {
-            "enter": {
-              "y": {
-                "value": 0
-              },
-              "height": {
-                "signal": "chartHeight"
-              },
-              "fill": {
-                "value": "firebrick"
-              }
-            },
-            "update": {
-              "x": {
-                "signal": "scale('timeScale', timeRange[1])"
-              },
-              "width": {
-                "value": 1
               }
             }
           }
@@ -1307,6 +1165,9 @@
           },
           "encode": {
             "update": {
+              "cursor": {
+                "value": "pointer"
+              },
               "x": {
                 "scale": "timeScale",
                 "field": "unit1"
@@ -1329,6 +1190,9 @@
               },
               "fillOpacity": {
                 "value": 1
+              },
+              "tooltip": {
+                "signal": "datum.count"
               }
             },
             "hover": {
@@ -1352,7 +1216,7 @@
                 "signal": "-nodeSize"
               },
               "yc": {
-                "signal": "templateAxisOffset"
+                "signal": "templateAxisYOffset"
               },
               "text": {
                 "value": "template"
@@ -1383,7 +1247,7 @@
                 "signal": "-nodeSize"
               },
               "yc": {
-                "signal": "candidateAxisOffset"
+                "signal": "candidateAxisYOffset"
               },
               "text": {
                 "value": "candidate"
@@ -1402,6 +1266,141 @@
               },
               "fill": {
                 "value": "gray"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "time-bar-chart",
+      "type": "group",
+      "data": [
+        {
+          "name": "communication-total",
+          "source": [
+            "displayed-template-edges",
+            "displayed-candidate-edges"
+          ],
+          "transform": [
+            {
+              "type": "aggregate",
+              "groupby": [
+                "Status"
+              ],
+              "ops": [
+                "count"
+              ],
+              "as": [
+                "count"
+              ]
+            }
+          ]
+        }
+      ],
+      "scales": [
+        {
+          "name": "yscale",
+          "domain": {
+            "data": "communication-total",
+            "field": "count"
+          },
+          "nice": true,
+          "range": [
+            {
+              "signal": "timelineHeight"
+            },
+            0
+          ]
+        },
+        {
+          "name": "xscale",
+          "type": "band",
+          "domain": [
+            "supplementary",
+            "common",
+            "missing"
+          ],
+          "range": [
+            0,
+            {
+              "signal": "barChartWidth-nodeSize"
+            }
+          ],
+          "padding": 0.3
+        }
+      ],
+      "encode": {
+        "enter": {
+          "y": {
+            "signal": "timelineYOffset"
+          },
+          "x": {
+            "signal": "trackWidth+nodeSize"
+          },
+          "height": {
+            "signal": "timelineHeight"
+          },
+          "width": {
+            "signal": "barChartWidth-nodeSize"
+          }
+        }
+      },
+      "axes": [
+        {
+          "orient": "right",
+          "scale": "yscale",
+          "tickCount": 3
+        },
+        {
+          "orient": "bottom",
+          "scale": "xscale",
+          "labelAngle": -45,
+          "labelAlign": {
+            "value": "right"
+          }
+        }
+      ],
+      "marks": [
+        {
+          "type": "rect",
+          "from": {
+            "data": "communication-total"
+          },
+          "encode": {
+            "enter": {
+              "cursor": {
+                "value": "pointer"
+              },
+              "x": {
+                "scale": "xscale",
+                "field": "Status"
+              },
+              "width": {
+                "scale": "xscale",
+                "band": 1
+              },
+              "y": {
+                "scale": "yscale",
+                "field": "count"
+              },
+              "y2": {
+                "scale": "yscale",
+                "value": 0
+              },
+              "tooltip": {
+                "signal": "datum.count"
+              }
+            },
+            "update": {
+              "fill": {
+                "scale": "edgeStatusColor",
+                "field": "Status"
+              }
+            },
+            "hover": {
+              "fill": {
+                "value": "darkgray"
               }
             }
           }
@@ -1429,9 +1428,9 @@
       ]
     },
     {
-      "name": "distanceScore",
+      "name": "similarityScore",
       "type": "linear",
-      "reverse": true,
+      "reverse": false,
       "range": {
         "scheme": "blues"
       },
@@ -1461,10 +1460,10 @@
       "type": "band",
       "range": [
         {
-          "signal": "nodeSize"
+          "signal": "candidateAxisYOffset-templateAxisYOffset"
         },
         {
-          "signal": "candidateAxisOffset-templateAxisOffset"
+          "signal": "nodeSize"
         }
       ],
       "padding": 0.1,
@@ -1476,52 +1475,12 @@
   ],
   "title": {
     "text": {
-      "signal": "'Person-pairing comparison view. Matched ' + matchedNodes + '/' + totalNodes + '.'"
-    }
-  },
-  "legends": [
-    {
-      "titleColor": "gray",
-      "labelColor": "gray",
-      "orient": "none",
-      "legendX": {
-        "value": 0
-      },
-      "legendY": {
-        "signal": "legendY"
-      },
-      "title": "Communication links",
-      "fill": "edgeStatusColor",
-      "direction": "horizontal"
+      "signal": "candidateGraphFolder + ' / Matched ' + matchedNodes + '/' + totalNodes + '.'"
     },
-    {
-      "titleColor": "gray",
-      "labelColor": "gray",
-      "orient": "none",
-      "legendX": {
-        "value": 250
-      },
-      "legendY": {
-        "signal": "legendY"
-      },
-      "title": "Distance",
-      "fill": "distanceScore",
-      "direction": "horizontal"
+    "subtitle": {
+      "signal": "'Green: ' + greenEdges + ', red: ' + redEdges + ', gray: ' + grayEdges"
     },
-    {
-      "titleColor": "gray",
-      "labelColor": "gray",
-      "orient": "none",
-      "legendX": {
-        "value": 500
-      },
-      "legendY": {
-        "signal": "legendY"
-      },
-      "title": "Country (from phone calls)",
-      "fill": "nodeCountries",
-      "direction": "horizontal"
-    }
-  ]
+    "align": "right",
+    "anchor": "end"
+  }
 }
-

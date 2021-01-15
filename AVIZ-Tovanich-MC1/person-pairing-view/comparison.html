@@ -1,0 +1,189 @@
+<html>
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<script>
+    const FILE_LIST = {
+        "Q3-ManualMatch": "Manual Match",
+        "Q2-GreedyGraphletSeed1": "Greedy Graphlet Seed 1",
+        "Q2-GreedyFinancialSeed1": "Greedy Financial Seed 1",
+        "Q2-GreedyFinancialTravelSeed1": "Greedy Financial & Travel Seed 1",
+        "Q2-GreedyGraphletSeed3": "Greedy Financial Seed 3",
+        "Q2-GreedyFinancialSeed3": "Greedy Financial Seed 3",
+        "Q2-GreedyFinancialTravelSeed3": "Greedy Financial & Travel Seed 3",
+    }
+</script>
+
+<body>
+    <div>This view help assess matches for the template extracted from the large graph. Unpaired template nodes are not
+        represented but a count is displayed in the top-right corner. Edges are for the communication channels. Dates
+        are aligned (14-day shift). Similarity measures are normalized per graph (template+candidate).
+    </div>
+    <div class="wrapper">
+        <div id="legend" class="col1">
+            <svg width="100%">
+                <image xlink:href="legend.svg" width="700px" height="100%" />
+            </svg>
+        </div>
+        <div class="col2">
+            <div>Select the extracted matches you want to display:</div>
+            <div id="dataSelector">
+            </div>
+            <div>
+                <label for="nodeOrderSelect">Sort nodes:</label>
+                <select name="Node order" id="nodeOrderSelect">
+                    <option value="Financial profile">by Financial profile</option>
+                    <option value="Travel profile">by Travel profile</option>
+                    <option value="Graphlet profile">by Graphlet profile</option>
+                    <option value="Temporal profile">by Temporal profile</option>
+                    <option value="templateEdgeOrder">to optimize top arc visibility</option>
+                    <option value="candidateEdgeOrder">to optimize bottom arc visibility</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div id="views">
+        <div id="view-Q2-GreedyFinancialSeed1"></div>
+    </div>
+    <script>
+        function render(spec, containerId) {
+            view = new vega.View(vega.parse(spec), {
+                renderer: 'canvas',  // renderer (canvas or svg)
+                container: '#' + containerId,   // parent DOM container
+                hover: true       // enable hover processing
+            });
+            return view.runAsync();
+        }
+
+        function injectCandidateName(jsonSpec, candidateGraphFolder, nodeOrderMode) {
+            let stringSpec = JSON.stringify(jsonSpec)
+                .replace(/candidateGraphFolder/g, "'" + candidateGraphFolder + "'")
+                .replace(/nodeOrderMode/g, "'" + nodeOrderMode + "'")
+            return JSON.parse(stringSpec)
+        }
+
+        function initView(candidateGraphFolder, nodeOrderMode, containerId) {
+            let view;
+            fetch('./spec_single.vg.json')
+                .then(res => res.json())
+                .then(spec => render(injectCandidateName(spec, candidateGraphFolder, nodeOrderMode), containerId))
+                .then(result => {
+                    // console.log(result.data("track-matrix"))
+                })
+                .catch(err => console.error(err));
+        }
+
+        function createView(dataId, nodeOrderMode) {
+            let viewId = "view-" + dataId
+            let newContainer = document.createElement("div")
+            newContainer.id = viewId
+            document.getElementById("views").appendChild(newContainer)
+            initView(dataId, nodeOrderMode, viewId)
+        }
+
+        function generateCheckboxList() {
+            let container = document.getElementById("dataSelector")
+            Object.keys(FILE_LIST).forEach((key, index) => {
+                let checkbox = document.createElement("input")
+                checkbox.type = "checkbox"
+                checkbox.id = key
+                checkbox.name = FILE_LIST[key]
+                checkbox.value = key
+                if (index == 0) checkbox.checked = true
+                let label = document.createElement("label")
+                label.for = key
+                label.innerText = FILE_LIST[key]
+                let checkboxBlock = document.createElement("div")
+                checkboxBlock.className = "checkbox-block"
+                checkboxBlock.appendChild(checkbox)
+                checkboxBlock.appendChild(label)
+                container.appendChild(checkboxBlock)
+            })
+        }
+
+        function initCheckboxes() {
+            // Add checkbox callback and initialize the views checked by default
+            document.querySelectorAll("#dataSelector > .checkbox-block > input").forEach(chkbx => {
+                let viewContainer = document.getElementById("views")
+                // Add a callback on select
+                chkbx.addEventListener('click', function (e) {
+                    // If unchecked, remove view
+                    if (chkbx.checked) {
+                        let nodeOrderMode = document.getElementById("nodeOrderSelect").value
+                        createView(chkbx.id, nodeOrderMode)
+                    } else {
+                        let div = document.getElementById("view-" + chkbx.id)
+                        viewContainer.removeChild(div)
+                    }
+                });
+
+                // If checked by default, initialize right now
+                let nodeOrderMode = document.getElementById("nodeOrderSelect").value
+                if (chkbx.checked) {
+                    createView(chkbx.id, nodeOrderMode)
+                }
+            })
+        }
+
+        function redrawViews(nodeOrderMode) {
+            // Remove all views
+            let viewContainer = document.getElementById("views")
+            while (viewContainer.firstChild) {
+                viewContainer.removeChild(viewContainer.lastChild);
+            }
+            // Go though the checkboxes
+            document.querySelectorAll("#dataSelector > .checkbox-block > input").forEach(chkbx => {
+                // If checked by default, initialize right now
+                if (chkbx.checked) {
+                    createView(chkbx.id, nodeOrderMode)
+                }
+            })
+        }
+
+        function initSelect() {
+            let select = document.getElementById("nodeOrderSelect")
+            select.addEventListener('change', (event) => {
+                redrawViews(event.target.value)
+            });
+        }
+
+        generateCheckboxList()
+        initCheckboxes()
+        initSelect()
+
+    </script>
+
+</body>
+
+<style>
+    body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    body>div {
+        margin: 2px;
+        padding: 1px;
+    }
+
+    .checkbox-block {
+        display: inline-block;
+        margin: 2px 10px;
+    }
+
+    .wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    .col1 {
+        margin-right: auto;
+        min-width: 700px;
+    }
+</style>
+
+</html>
