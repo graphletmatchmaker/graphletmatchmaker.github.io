@@ -372,11 +372,15 @@
             "Weight",
             "count",
             "eType",
-            "eType"
+            "eType",
+            "minTime",
+            "maxTime"
           ],
           "ops": [
             "sum",
             "sum",
+            "min",
+            "max",
             "min",
             "max"
           ],
@@ -384,7 +388,9 @@
             "Weight",
             "count",
             "eType_min",
-            "eType_max"
+            "eType_max",
+            "minTime",
+            "maxTime"
           ]
         },
         {
@@ -422,11 +428,15 @@
             "Weight",
             "count",
             "eType",
-            "eType"
+            "eType",
+            "minTime",
+            "maxTime"
           ],
           "ops": [
             "sum",
             "sum",
+            "min",
+            "max",
             "min",
             "max"
           ],
@@ -434,7 +444,9 @@
             "Weight",
             "count",
             "eType_min",
-            "eType_max"
+            "eType_max",
+            "minTime",
+            "maxTime"
           ]
         },
         {
@@ -656,7 +668,7 @@
                 "value": "pointer"
               },
               "tooltip": {
-                "signal": "{'Status': datum.Status, 'Source': datum.Source,'Target':datum.Target, 'Type': datum.eType }"
+                "signal": "{'Status': datum.Status, 'Source': datum.Source, 'Target':datum.Target, 'Type': datum.eType, 'Count': datum.count }"
               }
             },
             "update": {
@@ -724,7 +736,7 @@
                 "value": "pointer"
               },
               "tooltip": {
-                "signal": "{'Status': datum.Status, 'Source': datum.Source, 'Target':datum.Target, 'Type': datum.eType }"
+                "signal": "{'Status': datum.Status, 'Source': datum.Source, 'Target':datum.Target, 'Type': datum.eType, 'Count': datum.count }"
               }
             },
             "update": {
