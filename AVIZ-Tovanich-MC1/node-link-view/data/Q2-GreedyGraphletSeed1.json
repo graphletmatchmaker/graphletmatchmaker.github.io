@@ -25,799 +25,455 @@
         {
             "id": 457170,
             "NodeType": "Person",
-            "PhoneLocation": "Person",
+            "PhoneLocation": 5.0,
             "CountryLocation": "Person",
-            "Location": "Person"
+            "Location": 5.0
         },
         {
-            "id": 457203,
-            "NodeType": "Person",
-            "PhoneLocation": 1.0,
-            "CountryLocation": "Person",
-            "Location": 1.0
-        },
-        {
-            "id": 457395,
-            "NodeType": "Person",
-            "PhoneLocation": 4.0,
-            "CountryLocation": "Person",
-            "Location": 4.0
-        },
-        {
-            "id": 457405,
-            "NodeType": "Person",
-            "PhoneLocation": 4.0,
-            "CountryLocation": "Person",
-            "Location": 4.0
-        },
-        {
-            "id": 461119,
-            "NodeType": "Person",
-            "PhoneLocation": 1.0,
-            "CountryLocation": "Person",
-            "Location": 1.0
-        },
-        {
-            "id": 476844,
+            "id": 458511,
             "NodeType": "Person",
             "PhoneLocation": 2.0,
             "CountryLocation": "Person",
             "Location": 2.0
         },
         {
-            "id": 477269,
+            "id": 458640,
+            "NodeType": "Person",
+            "PhoneLocation": 1.0,
+            "CountryLocation": "Person",
+            "Location": 1.0
+        },
+        {
+            "id": 460478,
             "NodeType": "Person",
             "PhoneLocation": 4.0,
             "CountryLocation": "Person",
             "Location": 4.0
         },
         {
-            "id": 480400,
-            "NodeType": "Person",
-            "PhoneLocation": 0.0,
-            "CountryLocation": "Person",
-            "Location": 0.0
-        },
-        {
-            "id": 462278,
+            "id": 475890,
             "NodeType": "Person",
             "PhoneLocation": 5.0,
             "CountryLocation": "Person",
             "Location": 5.0
         },
         {
-            "id": 462691,
+            "id": 483282,
+            "NodeType": "Person",
+            "PhoneLocation": 2.0,
+            "CountryLocation": "Person",
+            "Location": 2.0
+        },
+        {
+            "id": 494508,
+            "NodeType": "Person",
+            "PhoneLocation": 2.0,
+            "CountryLocation": "Person",
+            "Location": 2.0
+        },
+        {
+            "id": 508659,
+            "NodeType": "Person",
+            "PhoneLocation": 1.0,
+            "CountryLocation": "Person",
+            "Location": 1.0
+        },
+        {
+            "id": 464993,
             "NodeType": "Person",
             "PhoneLocation": 4.0,
             "CountryLocation": "Person",
             "Location": 4.0
         },
         {
-            "id": 463267,
+            "id": 545211,
             "NodeType": "Person",
-            "PhoneLocation": 5.0,
+            "PhoneLocation": 2.0,
             "CountryLocation": "Person",
-            "Location": 5.0
+            "Location": 2.0
         },
         {
-            "id": 463273,
+            "id": 559853,
             "NodeType": "Person",
-            "PhoneLocation": 5.0,
+            "PhoneLocation": 2.0,
             "CountryLocation": "Person",
-            "Location": 5.0
+            "Location": 2.0
         },
         {
-            "id": 470415,
+            "id": 592124,
             "NodeType": "Person",
-            "PhoneLocation": 4.0,
+            "PhoneLocation": "Person",
             "CountryLocation": "Person",
-            "Location": 4.0
+            "Location": "Person"
         },
         {
-            "id": 471475,
+            "id": 608508,
             "NodeType": "Person",
             "PhoneLocation": 3.0,
             "CountryLocation": "Person",
             "Location": 3.0
         },
         {
-            "id": 550972,
-            "NodeType": "Document",
-            "PhoneLocation": "Document",
-            "CountryLocation": "Document",
-            "Location": "Document"
-        },
-        {
-            "id": 633869,
-            "NodeType": "Document",
-            "PhoneLocation": "Document",
-            "CountryLocation": "Document",
-            "Location": "Document"
+            "id": 604379,
+            "NodeType": "Person",
+            "PhoneLocation": "Person",
+            "CountryLocation": "Person",
+            "Location": "Person"
         }
     ],
     "links": [
         {
             "source": 456761,
-            "eType": "Email",
-            "target": 457395,
-            "value": 1
-        },
-        {
-            "source": 456761,
-            "eType": "Email",
-            "target": 462278,
-            "value": 1
-        },
-        {
-            "source": 456761,
             "eType": "Phone",
-            "target": 463267,
+            "target": 508659,
             "value": 1
         },
         {
             "source": 457002,
-            "eType": "Phone",
-            "target": 457203,
+            "eType": "Email",
+            "target": 545211,
             "value": 1
         },
         {
-            "source": 457002,
+            "source": 457058,
+            "eType": "Email",
+            "target": 483282,
+            "value": 2
+        },
+        {
+            "source": 457058,
             "eType": "Phone",
-            "target": 461119,
-            "value": 2
-        },
-        {
-            "source": 457058,
-            "eType": "Email",
-            "target": 457203,
-            "value": 2
-        },
-        {
-            "source": 457058,
-            "eType": "Email",
-            "target": 462278,
+            "target": 464993,
             "value": 3
         },
         {
             "source": 457058,
-            "eType": "Email",
-            "target": 462691,
-            "value": 1
-        },
-        {
-            "source": 457058,
-            "eType": "Email",
-            "target": 477269,
+            "eType": "Phone",
+            "target": 475890,
             "value": 1
         },
         {
             "source": 457058,
             "eType": "Phone",
-            "target": 457203,
+            "target": 483282,
             "value": 1
         },
         {
             "source": 457058,
             "eType": "Phone",
-            "target": 457395,
-            "value": 2
-        },
-        {
-            "source": 457058,
-            "eType": "Phone",
-            "target": 462278,
-            "value": 1
-        },
-        {
-            "source": 457058,
-            "eType": "Phone",
-            "target": 462691,
-            "value": 2
-        },
-        {
-            "source": 457058,
-            "eType": "Phone",
-            "target": 470415,
+            "target": 545211,
             "value": 1
         },
         {
             "source": 457170,
             "eType": "Email",
-            "target": 457203,
+            "target": 458511,
             "value": 1
         },
         {
             "source": 457170,
             "eType": "Email",
-            "target": 462691,
+            "target": 483282,
             "value": 1
         },
         {
-            "source": 457203,
-            "eType": "Email",
-            "target": 457203,
-            "value": 4
-        },
-        {
-            "source": 457203,
-            "eType": "Email",
-            "target": 463267,
+            "source": 457170,
+            "eType": "Phone",
+            "target": 458511,
             "value": 1
         },
         {
-            "source": 457203,
-            "eType": "Email",
-            "target": 463273,
-            "value": 1
-        },
-        {
-            "source": 457203,
+            "source": 458511,
             "eType": "Phone",
             "target": 457058,
             "value": 1
         },
         {
-            "source": 457203,
+            "source": 458640,
+            "eType": "Email",
+            "target": 545211,
+            "value": 1
+        },
+        {
+            "source": 458640,
             "eType": "Phone",
-            "target": 457203,
+            "target": 483282,
             "value": 2
         },
         {
-            "source": 457203,
+            "source": 458640,
             "eType": "Phone",
-            "target": 457395,
-            "value": 2
-        },
-        {
-            "source": 457203,
-            "eType": "Phone",
-            "target": 461119,
+            "target": 508659,
             "value": 1
         },
         {
-            "source": 457203,
+            "source": 458640,
             "eType": "Phone",
-            "target": 462691,
-            "value": 2
-        },
-        {
-            "source": 457203,
-            "eType": "Phone",
-            "target": 463267,
-            "value": 3
-        },
-        {
-            "source": 457203,
-            "eType": "Phone",
-            "target": 463273,
+            "target": 545211,
             "value": 1
         },
         {
-            "source": 457203,
+            "source": 458640,
             "eType": "Phone",
-            "target": 471475,
+            "target": 608508,
             "value": 1
         },
         {
-            "source": 457395,
-            "eType": "Author-of",
-            "target": 550972,
-            "value": 1
-        },
-        {
-            "source": 457395,
+            "source": 460478,
             "eType": "Email",
-            "target": 457203,
+            "target": 458511,
             "value": 1
         },
         {
-            "source": 457395,
+            "source": 460478,
             "eType": "Email",
-            "target": 461119,
+            "target": 608508,
             "value": 1
         },
         {
-            "source": 457395,
-            "eType": "Email",
-            "target": 462278,
-            "value": 1
-        },
-        {
-            "source": 457395,
-            "eType": "Email",
-            "target": 462691,
-            "value": 2
-        },
-        {
-            "source": 457395,
-            "eType": "Email",
-            "target": 463273,
-            "value": 1
-        },
-        {
-            "source": 457395,
+            "source": 460478,
             "eType": "Phone",
-            "target": 461119,
-            "value": 3
-        },
-        {
-            "source": 457395,
-            "eType": "Phone",
-            "target": 462278,
-            "value": 2
-        },
-        {
-            "source": 457395,
-            "eType": "Phone",
-            "target": 462691,
-            "value": 6
-        },
-        {
-            "source": 457395,
-            "eType": "Phone",
-            "target": 463267,
+            "target": 483282,
             "value": 1
         },
         {
-            "source": 457405,
-            "eType": "Email",
-            "target": 462691,
-            "value": 1
-        },
-        {
-            "source": 457405,
-            "eType": "Phone",
-            "target": 462278,
-            "value": 1
-        },
-        {
-            "source": 457405,
-            "eType": "Phone",
-            "target": 463267,
-            "value": 2
-        },
-        {
-            "source": 457405,
-            "eType": "Phone",
-            "target": 463273,
-            "value": 1
-        },
-        {
-            "source": 461119,
-            "eType": "Email",
-            "target": 457395,
-            "value": 2
-        },
-        {
-            "source": 461119,
-            "eType": "Email",
-            "target": 462278,
-            "value": 2
-        },
-        {
-            "source": 461119,
-            "eType": "Email",
-            "target": 463267,
-            "value": 1
-        },
-        {
-            "source": 461119,
-            "eType": "Email",
-            "target": 463273,
-            "value": 1
-        },
-        {
-            "source": 461119,
+            "source": 464993,
             "eType": "Phone",
             "target": 457058,
-            "value": 3
-        },
-        {
-            "source": 461119,
-            "eType": "Phone",
-            "target": 457395,
-            "value": 1
-        },
-        {
-            "source": 461119,
-            "eType": "Phone",
-            "target": 461119,
-            "value": 1
-        },
-        {
-            "source": 461119,
-            "eType": "Phone",
-            "target": 462278,
-            "value": 1
-        },
-        {
-            "source": 461119,
-            "eType": "Phone",
-            "target": 462691,
-            "value": 1
-        },
-        {
-            "source": 461119,
-            "eType": "Phone",
-            "target": 471475,
             "value": 2
         },
         {
-            "source": 462278,
+            "source": 475890,
             "eType": "Email",
-            "target": 457170,
+            "target": 483282,
             "value": 1
         },
         {
-            "source": 462278,
+            "source": 475890,
             "eType": "Email",
-            "target": 457203,
+            "target": 545211,
             "value": 1
         },
         {
-            "source": 462278,
-            "eType": "Email",
-            "target": 461119,
-            "value": 1
-        },
-        {
-            "source": 462278,
-            "eType": "Email",
-            "target": 462278,
-            "value": 2
-        },
-        {
-            "source": 462278,
-            "eType": "Email",
-            "target": 462691,
-            "value": 2
-        },
-        {
-            "source": 462278,
-            "eType": "Email",
-            "target": 463273,
-            "value": 1
-        },
-        {
-            "source": 462278,
-            "eType": "Email",
-            "target": 470415,
-            "value": 1
-        },
-        {
-            "source": 462278,
-            "eType": "Email",
-            "target": 480400,
-            "value": 1
-        },
-        {
-            "source": 462278,
+            "source": 475890,
             "eType": "Phone",
+            "target": 608508,
+            "value": 1
+        },
+        {
+            "source": 483282,
+            "eType": "Email",
             "target": 457058,
+            "value": 1
+        },
+        {
+            "source": 483282,
+            "eType": "Email",
+            "target": 494508,
+            "value": 1
+        },
+        {
+            "source": 483282,
+            "eType": "Email",
+            "target": 608508,
+            "value": 1
+        },
+        {
+            "source": 483282,
+            "eType": "Phone",
+            "target": 458640,
+            "value": 1
+        },
+        {
+            "source": 483282,
+            "eType": "Phone",
+            "target": 460478,
+            "value": 1
+        },
+        {
+            "source": 483282,
+            "eType": "Phone",
+            "target": 483282,
+            "value": 2
+        },
+        {
+            "source": 483282,
+            "eType": "Phone",
+            "target": 508659,
+            "value": 1
+        },
+        {
+            "source": 494508,
+            "eType": "Email",
+            "target": 483282,
+            "value": 2
+        },
+        {
+            "source": 494508,
+            "eType": "Phone",
+            "target": 545211,
             "value": 3
         },
         {
-            "source": 462278,
-            "eType": "Phone",
-            "target": 457395,
-            "value": 2
-        },
-        {
-            "source": 462278,
-            "eType": "Phone",
-            "target": 462278,
+            "source": 508659,
+            "eType": "Email",
+            "target": 460478,
             "value": 1
         },
         {
-            "source": 462278,
-            "eType": "Phone",
-            "target": 462691,
-            "value": 2
-        },
-        {
-            "source": 462278,
-            "eType": "Phone",
-            "target": 463267,
-            "value": 3
-        },
-        {
-            "source": 462278,
-            "eType": "Phone",
-            "target": 463273,
+            "source": 508659,
+            "eType": "Email",
+            "target": 464993,
             "value": 1
         },
         {
-            "source": 462278,
-            "eType": "Phone",
-            "target": 470415,
-            "value": 2
-        },
-        {
-            "source": 462278,
-            "eType": "Phone",
-            "target": 471475,
-            "value": 4
-        },
-        {
-            "source": 462691,
+            "source": 508659,
             "eType": "Email",
-            "target": 457203,
+            "target": 483282,
             "value": 1
         },
         {
-            "source": 462691,
+            "source": 508659,
             "eType": "Email",
-            "target": 462278,
+            "target": 545211,
+            "value": 1
+        },
+        {
+            "source": 508659,
+            "eType": "Email",
+            "target": 608508,
+            "value": 1
+        },
+        {
+            "source": 508659,
+            "eType": "Phone",
+            "target": 456761,
+            "value": 1
+        },
+        {
+            "source": 508659,
+            "eType": "Phone",
+            "target": 457002,
+            "value": 1
+        },
+        {
+            "source": 508659,
+            "eType": "Phone",
+            "target": 460478,
+            "value": 1
+        },
+        {
+            "source": 508659,
+            "eType": "Phone",
+            "target": 475890,
+            "value": 1
+        },
+        {
+            "source": 508659,
+            "eType": "Phone",
+            "target": 494508,
             "value": 2
         },
         {
-            "source": 462691,
+            "source": 508659,
+            "eType": "Phone",
+            "target": 545211,
+            "value": 1
+        },
+        {
+            "source": 508659,
+            "eType": "Phone",
+            "target": 608508,
+            "value": 1
+        },
+        {
+            "source": 545211,
             "eType": "Email",
-            "target": 462691,
+            "target": 475890,
+            "value": 1
+        },
+        {
+            "source": 545211,
+            "eType": "Email",
+            "target": 545211,
+            "value": 1
+        },
+        {
+            "source": 545211,
+            "eType": "Phone",
+            "target": 457002,
+            "value": 1
+        },
+        {
+            "source": 545211,
+            "eType": "Phone",
+            "target": 458511,
+            "value": 1
+        },
+        {
+            "source": 545211,
+            "eType": "Phone",
+            "target": 464993,
+            "value": 1
+        },
+        {
+            "source": 545211,
+            "eType": "Phone",
+            "target": 494508,
             "value": 2
         },
         {
-            "source": 462691,
-            "eType": "Email",
-            "target": 463267,
-            "value": 2
+            "source": 545211,
+            "eType": "Phone",
+            "target": 508659,
+            "value": 1
         },
         {
-            "source": 462691,
+            "source": 545211,
+            "eType": "Phone",
+            "target": 608508,
+            "value": 1
+        },
+        {
+            "source": 559853,
+            "eType": "Phone",
+            "target": 494508,
+            "value": 1
+        },
+        {
+            "source": 592124,
+            "eType": "Email",
+            "target": 483282,
+            "value": 1
+        },
+        {
+            "source": 608508,
+            "eType": "Email",
+            "target": 457002,
+            "value": 1
+        },
+        {
+            "source": 608508,
+            "eType": "Email",
+            "target": 475890,
+            "value": 1
+        },
+        {
+            "source": 608508,
+            "eType": "Email",
+            "target": 604379,
+            "value": 1
+        },
+        {
+            "source": 608508,
             "eType": "Phone",
             "target": 457058,
             "value": 1
         },
         {
-            "source": 462691,
+            "source": 608508,
             "eType": "Phone",
-            "target": 457203,
-            "value": 1
-        },
-        {
-            "source": 462691,
-            "eType": "Phone",
-            "target": 457395,
-            "value": 1
-        },
-        {
-            "source": 462691,
-            "eType": "Phone",
-            "target": 457405,
-            "value": 1
-        },
-        {
-            "source": 462691,
-            "eType": "Phone",
-            "target": 462278,
-            "value": 4
-        },
-        {
-            "source": 462691,
-            "eType": "Phone",
-            "target": 462691,
-            "value": 2
-        },
-        {
-            "source": 462691,
-            "eType": "Phone",
-            "target": 463267,
-            "value": 4
-        },
-        {
-            "source": 462691,
-            "eType": "Phone",
-            "target": 463273,
-            "value": 1
-        },
-        {
-            "source": 462691,
-            "eType": "Phone",
-            "target": 471475,
-            "value": 2
-        },
-        {
-            "source": 463267,
-            "eType": "Email",
-            "target": 457203,
-            "value": 2
-        },
-        {
-            "source": 463267,
-            "eType": "Email",
-            "target": 457395,
-            "value": 1
-        },
-        {
-            "source": 463267,
-            "eType": "Email",
-            "target": 461119,
-            "value": 1
-        },
-        {
-            "source": 463267,
-            "eType": "Email",
-            "target": 462278,
-            "value": 2
-        },
-        {
-            "source": 463267,
-            "eType": "Email",
-            "target": 462691,
-            "value": 4
-        },
-        {
-            "source": 463267,
-            "eType": "Email",
-            "target": 463273,
-            "value": 1
-        },
-        {
-            "source": 463267,
-            "eType": "Phone",
-            "target": 457203,
-            "value": 3
-        },
-        {
-            "source": 463267,
-            "eType": "Phone",
-            "target": 461119,
-            "value": 1
-        },
-        {
-            "source": 463267,
-            "eType": "Phone",
-            "target": 462278,
-            "value": 1
-        },
-        {
-            "source": 463273,
-            "eType": "Email",
-            "target": 457170,
-            "value": 1
-        },
-        {
-            "source": 463273,
-            "eType": "Email",
-            "target": 457203,
-            "value": 7
-        },
-        {
-            "source": 463273,
-            "eType": "Email",
-            "target": 461119,
-            "value": 3
-        },
-        {
-            "source": 463273,
-            "eType": "Email",
-            "target": 462278,
-            "value": 2
-        },
-        {
-            "source": 463273,
-            "eType": "Email",
-            "target": 462691,
-            "value": 3
-        },
-        {
-            "source": 463273,
-            "eType": "Phone",
-            "target": 457203,
-            "value": 2
-        },
-        {
-            "source": 463273,
-            "eType": "Phone",
-            "target": 462278,
-            "value": 2
-        },
-        {
-            "source": 463273,
-            "eType": "Phone",
-            "target": 462691,
-            "value": 2
-        },
-        {
-            "source": 463273,
-            "eType": "Phone",
-            "target": 480400,
-            "value": 1
-        },
-        {
-            "source": 470415,
-            "eType": "Email",
-            "target": 461119,
-            "value": 1
-        },
-        {
-            "source": 470415,
-            "eType": "Phone",
-            "target": 462278,
-            "value": 1
-        },
-        {
-            "source": 470415,
-            "eType": "Phone",
-            "target": 463273,
-            "value": 1
-        },
-        {
-            "source": 471475,
-            "eType": "Email",
-            "target": 457203,
-            "value": 1
-        },
-        {
-            "source": 471475,
-            "eType": "Email",
-            "target": 461119,
-            "value": 1
-        },
-        {
-            "source": 471475,
-            "eType": "Email",
-            "target": 462691,
-            "value": 2
-        },
-        {
-            "source": 471475,
-            "eType": "Phone",
-            "target": 457203,
-            "value": 2
-        },
-        {
-            "source": 471475,
-            "eType": "Phone",
-            "target": 461119,
-            "value": 1
-        },
-        {
-            "source": 471475,
-            "eType": "Phone",
-            "target": 462278,
-            "value": 1
-        },
-        {
-            "source": 471475,
-            "eType": "Phone",
-            "target": 462691,
-            "value": 4
-        },
-        {
-            "source": 476844,
-            "eType": "Author-of",
-            "target": 633869,
-            "value": 1
-        },
-        {
-            "source": 476844,
-            "eType": "Email",
-            "target": 462691,
-            "value": 1
-        },
-        {
-            "source": 476844,
-            "eType": "Phone",
-            "target": 461119,
-            "value": 2
-        },
-        {
-            "source": 477269,
-            "eType": "Phone",
-            "target": 462691,
-            "value": 1
-        },
-        {
-            "source": 480400,
-            "eType": "Email",
-            "target": 457203,
-            "value": 1
-        },
-        {
-            "source": 480400,
-            "eType": "Phone",
-            "target": 461119,
+            "target": 458511,
             "value": 1
         }
     ]
