@@ -1169,10 +1169,7 @@
             },
             0
           ],
-          "domain": {
-            "data": "communication-by-time",
-            "field": "y1"
-          },
+          "domain": [0, 200],
           "zero": true
         }
       ],
@@ -1371,10 +1368,7 @@
       "scales": [
         {
           "name": "yscale",
-          "domain": {
-            "data": "communication-total",
-            "field": "count"
-          },
+          "domain": [ 0, 200],
           "nice": true,
           "range": [
             {
@@ -1420,7 +1414,8 @@
         {
           "orient": "right",
           "scale": "yscale",
-          "tickCount": 3
+          "tickCount": 2,
+          "labelFlush": true
         },
         {
           "orient": "bottom",
