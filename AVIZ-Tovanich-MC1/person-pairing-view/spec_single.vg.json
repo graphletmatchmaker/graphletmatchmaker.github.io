@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.8.json",
   "width": 600,
-  "height": 300,
+  "height": 150,
   "padding": 0,
   "signals": [
     {
@@ -986,6 +986,9 @@
           },
           "encode": {
             "enter": {
+              "stroke": {
+                "value": "black"
+              },
               "cursor": {
                 "value": "pointer"
               },
@@ -1007,14 +1010,17 @@
               }
             },
             "update": {
+              "strokeOpacity": {
+                "value": 0
+              },
               "fill": {
                 "scale": "similarityScore",
                 "field": "amount"
               }
             },
             "hover": {
-              "fill": {
-                "value": "darkgray"
+              "strokeOpacity": {
+                "value": 0.9
               }
             }
           }
@@ -1169,7 +1175,10 @@
             },
             0
           ],
-          "domain": [0, 200],
+          "domain": [
+            0,
+            200
+          ],
           "zero": true
         }
       ],
@@ -1368,7 +1377,10 @@
       "scales": [
         {
           "name": "yscale",
-          "domain": [ 0, 200],
+          "domain": [
+            0,
+            200
+          ],
           "nice": true,
           "range": [
             {
@@ -1434,6 +1446,9 @@
           },
           "encode": {
             "enter": {
+              "stroke": {
+                "value": "black"
+              },
               "cursor": {
                 "value": "pointer"
               },
@@ -1458,14 +1473,17 @@
               }
             },
             "update": {
+              "strokeOpacity": {
+                "value": 0
+              },
               "fill": {
                 "scale": "edgeStatusColor",
                 "field": "Status"
               }
             },
             "hover": {
-              "fill": {
-                "value": "darkgray"
+              "strokeOpacity": {
+                "value": 1
               }
             }
           }
