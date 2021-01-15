@@ -10,15 +10,15 @@
     },
     {
       "name": "greenEdges",
-      "update": "data('green-edges').length"
+      "update": "data('green-edges-flatten-time').length"
     },
     {
       "name": "grayEdges",
-      "update": "data('displayed-candidate-edges').length"
+      "update": "data('candidate-edges-flatten-time').length"
     },
     {
       "name": "redEdges",
-      "update": "data('displayed-template-edges').length - greenEdges"
+      "update": "data('template-edges-flatten-time').length - greenEdges"
     },
     {
       "name": "totalNodes",
@@ -83,60 +83,6 @@
           "ops": [
             "rank"
           ]
-        }
-      ]
-    },
-    {
-      "name": "template-edges",
-      "url": {
-        "signal": "'data/' + candidateGraphFolder + '/template_edges.csv'"
-      },
-      "format": {
-        "type": "csv"
-      },
-      "transform": [
-        {
-          "type": "filter",
-          "expr": "datum.eType == 0 || datum.eType == 1"
-        },
-        {
-          "type": "formula",
-          "as": "Status",
-          "expr": "datum['Status']"
-        },
-        {
-          "type": "formula",
-          "expr": "parseInt(datum.Time)",
-          "as": "Time"
-        }
-      ]
-    },
-    {
-      "name": "candidate-edges",
-      "url": {
-        "signal": "'data/' + candidateGraphFolder + '/candidate_edges.csv'"
-      },
-      "format": {
-        "type": "csv"
-      },
-      "transform": [
-        {
-          "type": "filter",
-          "expr": "datum.eType == 0 || datum.eType == 1"
-        },
-        {
-          "type": "formula",
-          "as": "Status",
-          "expr": "datum['Status']"
-        },
-        {
-          "type": "filter",
-          "expr": "datum.Status == 'supplementary'"
-        },
-        {
-          "type": "formula",
-          "expr": "parseInt(datum.Time)",
-          "as": "Time"
         }
       ]
     },
@@ -254,54 +200,166 @@
       ]
     },
     {
-      "name": "displayed-template-edges",
+      "name": "template-edges",
+      "url": {
+        "signal": "'data/' + candidateGraphFolder + '/template_edges.csv'"
+      },
+      "format": {
+        "type": "csv"
+      },
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.eType == 0 || datum.eType == 1"
+        },
+        {
+          "type": "formula",
+          "as": "Status",
+          "expr": "datum['Status']"
+        },
+        {
+          "type": "formula",
+          "expr": "parseInt(datum.Time)",
+          "as": "Time"
+        },
+        {
+          "type": "filter",
+          "expr": "datum.Status == 'common' || datum.Status == 'missing' "
+        },
+        {
+          "type": "lookup",
+          "from": "template-nodes",
+          "key": "NodeID",
+          "fields": [
+            "Source",
+            "Target"
+          ],
+          "as": [
+            "source",
+            "target"
+          ]
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum.source) && isValid(datum.target)"
+        }
+      ]
+    },
+    {
+      "name": "candidate-edges",
+      "url": {
+        "signal": "'data/' + candidateGraphFolder + '/candidate_edges.csv'"
+      },
+      "format": {
+        "type": "csv"
+      },
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.eType == 0 || datum.eType == 1"
+        },
+        {
+          "type": "formula",
+          "as": "Status",
+          "expr": "datum['Status']"
+        },
+        {
+          "type": "filter",
+          "expr": "datum.Status == 'supplementary'"
+        },
+        {
+          "type": "formula",
+          "expr": "parseInt(datum.Time)",
+          "as": "Time"
+        },
+        {
+          "type": "lookup",
+          "from": "candidate-nodes",
+          "key": "NodeID",
+          "fields": [
+            "Source",
+            "Target"
+          ],
+          "as": [
+            "source",
+            "target"
+          ]
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum.source) && isValid(datum.target)"
+        }
+      ]
+    },
+    {
+      "name": "template-edges-flatten-time",
       "source": "template-edges",
       "transform": [
         {
-          "type": "lookup",
-          "from": "template-nodes",
-          "key": "NodeID",
-          "fields": [
+          "type": "aggregate",
+          "groupby": [
             "Source",
-            "Target"
+            "Target",
+            "eType",
+            "Status"
+          ],
+          "fields": [
+            "Weight",
+            null,
+            "Time",
+            "Time"
+          ],
+          "ops": [
+            "sum",
+            "count",
+            "min",
+            "max"
           ],
           "as": [
-            "source",
-            "target"
+            "Weight",
+            "count",
+            "minTime",
+            "maxTime"
           ]
-        },
-        {
-          "type": "filter",
-          "expr": "isValid(datum.source) && isValid(datum.target)"
         }
       ]
     },
     {
-      "name": "displayed-candidate-edges",
+      "name": "candidate-edges-flatten-time",
       "source": "candidate-edges",
       "transform": [
         {
-          "type": "lookup",
-          "from": "candidate-nodes",
-          "key": "NodeID",
-          "fields": [
+          "type": "aggregate",
+          "groupby": [
             "Source",
-            "Target"
+            "Target",
+            "eType",
+            "Status"
+          ],
+          "fields": [
+            "Weight",
+            null,
+            "Time",
+            "Time"
+          ],
+          "ops": [
+            "sum",
+            "count",
+            "min",
+            "max"
           ],
           "as": [
-            "source",
-            "target"
+            "Weight",
+            "count",
+            "minTime",
+            "maxTime"
           ]
-        },
-        {
-          "type": "filter",
-          "expr": "isValid(datum.source) && isValid(datum.target)"
         }
       ]
     },
     {
-      "name": "displayed-template-edges-agg",
-      "source": "displayed-template-edges",
+      "name": "template-edges-flatten-time-and-type",
+      "source": "template-edges-flatten-time",
       "transform": [
         {
           "type": "aggregate",
@@ -312,13 +370,13 @@
           ],
           "fields": [
             "Weight",
-            null,
+            "count",
             "eType",
             "eType"
           ],
           "ops": [
             "sum",
-            "count",
+            "sum",
             "min",
             "max"
           ],
@@ -350,8 +408,8 @@
       ]
     },
     {
-      "name": "displayed-candidate-edges-agg",
-      "source": "displayed-candidate-edges",
+      "name": "candidate-edges-flatten-time-and-type",
+      "source": "candidate-edges-flatten-time",
       "transform": [
         {
           "type": "aggregate",
@@ -362,13 +420,13 @@
           ],
           "fields": [
             "Weight",
-            null,
+            "count",
             "eType",
             "eType"
           ],
           "ops": [
             "sum",
-            "count",
+            "sum",
             "min",
             "max"
           ],
@@ -400,8 +458,8 @@
       ]
     },
     {
-      "name": "green-edges",
-      "source": "displayed-template-edges",
+      "name": "green-edges-flatten-time",
+      "source": "template-edges-flatten-time",
       "transform": [
         {
           "type": "filter",
@@ -590,7 +648,7 @@
           "name": "template-links",
           "type": "path",
           "from": {
-            "data": "displayed-template-edges-agg"
+            "data": "template-edges-flatten-time-and-type"
           },
           "encode": {
             "enter": {
@@ -658,7 +716,7 @@
           "name": "candidate-links",
           "type": "path",
           "from": {
-            "data": "displayed-candidate-edges-agg"
+            "data": "candidate-edges-flatten-time-and-type"
           },
           "encode": {
             "enter": {
@@ -1000,8 +1058,8 @@
         {
           "name": "communication-by-time",
           "source": [
-            "displayed-template-edges",
-            "displayed-candidate-edges"
+            "template-edges",
+            "candidate-edges"
           ],
           "transform": [
             {
@@ -1279,8 +1337,8 @@
         {
           "name": "communication-total",
           "source": [
-            "displayed-template-edges",
-            "displayed-candidate-edges"
+            "template-edges-flatten-time",
+            "candidate-edges-flatten-time"
           ],
           "transform": [
             {
