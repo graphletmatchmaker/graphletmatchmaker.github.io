@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
@@ -12,7 +13,7 @@
             align-items: center;
             margin-right: 1em;
         }
-        
+
         .O-1::before {
             content: "";
             width: 1em;
@@ -33,6 +34,7 @@
         }
     </style>
 </head>
+
 <body>
     <div style="width: 100%; float: left;">
         <div id="col1" style="width: 50%; float: left;">
@@ -70,6 +72,7 @@
     </div>
 
     <div id="network"></div>
+    <!-- <button id="downloadButton" href="#">Save SVG</button> -->
 </body>
 <script>
     const width = 300, height = 300;
@@ -79,7 +82,7 @@
     const color = d3.scaleOrdinal()
         .domain([0, 1, 2, 3, 4, 5, -1])
         .range(["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#7f7f7f"]);
-    
+
     const shapes = d3.scaleOrdinal()
         .domain(["Person", "Product", "Document", "Country"])
         .range([d3.symbolCircle, d3.symbolCross, d3.symbolSquare, d3.symbolStar]);
@@ -96,15 +99,15 @@
         let legend = d3.select("#nodeLegend")
             .append("div")
             .attr("class", "O-2-item");
-        
+
         legend.append("svg")
             .attr("viewBox", "-7 -7 14 14")
             .attr("width", "14")
             .attr("height", "14")
             .style("margin-right", "3px")
             .append("path")
-                .attr("fill", "#7f7f7f")
-                .attr("d", d3.symbol().size(80).type(shapes(name)));
+            .attr("fill", "#7f7f7f")
+            .attr("d", d3.symbol().size(80).type(shapes(name)));
         legend.append("span").html(name)
     });
 
@@ -112,9 +115,9 @@
         .selectAll("span")
         .data([0, 1, 2, 3, 4, 5, -1])
         .join("span")
-            .attr("class", "O-1")
-            .style("--color", d => color(d))
-            .text(d => d == -1 ? "Unknown" : d);
+        .attr("class", "O-1")
+        .style("--color", d => color(d))
+        .text(d => d == -1 ? "Unknown" : d);
 
     function drag(simulation) {
         function dragstarted(d) {
@@ -122,18 +125,18 @@
             d.fx = d.x;
             d.fy = d.y;
         }
-        
+
         function dragged(d) {
             d.fx = d3.event.x;
             d.fy = d3.event.y;
         }
-        
+
         function dragended(d) {
             if (!d3.event.active) simulation.alphaTarget(0);
             d.fx = null;
             d.fy = null;
         }
-        
+
         return d3.drag()
             .on("start", dragstarted)
             .on("drag", dragged)
@@ -153,41 +156,47 @@
         d3.json("data/Q2-GreedyGraphletSeed3.json"),
         d3.json("data/Q2-GreedyFinancialSeed3.json"),
         d3.json("data/Q2-GreedyFinancialTravelSeed3.json"),
-        d3.json("data/Q3-demographics_matched_with_node66.json"),
+        d3.json("data/Q3-ManualMatch.json"),
         d3.json("data/Q4-matched_nodes_intra.json"),
 
-    ]).then(function(files) {
-        files.forEach(function(data, index) {
+    ]).then(function (files) {
+        files.forEach(function (data, index) {
             createGraph(data, sel_eTypes);
         })
 
         d3.selectAll("input[type='checkbox']")
-            .on("click", function() {
+            .on("click", function () {
                 if (sel_eTypes.includes(this.value)) {
                     sel_eTypes.splice(sel_eTypes.indexOf(this.value), 1);
                 }
                 else {
                     sel_eTypes.push(this.value);
                 }
-                
+
                 d3.select("#network").selectAll("*").remove();
-                files.forEach(function(data, index) {
+                files.forEach(function (data, index) {
                     createGraph(data, sel_eTypes);
                 });
             });
 
         d3.selectAll("input[name='color']")
-            .on("change", function() {
+            .on("change", function () {
                 d3.select("#network").selectAll("*").remove();
-                files.forEach(function(data, index) {
+                files.forEach(function (data, index) {
                     createGraph(data, sel_eTypes);
                 });
             })
 
+        // d3.select("#downloadButton").on("click", function () {
+        //     d3.select(this)
+        //         .attr("href", 'data:application/octet-stream;base64,' + btoa(d3.select("#network").html()))
+        //         .attr("download", "node-link-diagrams.svg")
+        // })
+
     });
 
     function createGraph(data, sel_eTypes) {
-        const {name, nodes, links} = data;
+        const { name, nodes, links } = data;
 
         let nodeColor = "Location"//document.querySelector('input[name="color"]:checked').value;
 
@@ -204,7 +213,7 @@
             .force("charge", d3.forceManyBody())
             .force("x", d3.forceX())
             .force("y", d3.forceY());
-        
+
         const svg = d3.select("#network")
             .append("svg")
             .attr("width", width)
@@ -225,8 +234,8 @@
             .selectAll("line")
             .data(links2)
             .join("line")
-                .attr("stroke-width", d => Math.sqrt(d.value));
-        
+            .attr("stroke-width", d => Math.sqrt(d.value));
+
         /*const node = svg.append("g")
                 .attr("stroke", "#fff")
             .attr("stroke-width", 1.5)
@@ -243,15 +252,15 @@
             .selectAll("path")
             .data(nodes)
             .join("path")
-                .attr("d", d3.symbol()
-                    .size(function(d) { return 80; })
-                    .type(function(d) { return shapes(d.NodeType) }))
-                .attr("fill", d => color(d[nodeColor]))
-                .call(drag(simulation));
+            .attr("d", d3.symbol()
+                .size(function (d) { return 80; })
+                .type(function (d) { return shapes(d.NodeType) }))
+            .attr("fill", d => color(d[nodeColor]))
+            .call(drag(simulation));
 
         node.append("title")
             .text(d => d.NodeType + " " + d.id);
-        
+
         simulation.on("tick", () => {
             link
                 .attr("x1", d => d.source.x)
@@ -260,8 +269,9 @@
                 .attr("y2", d => d.target.y);
 
             node
-                .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+                .attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; });
         });
     }
 </script>
+
 </html>
