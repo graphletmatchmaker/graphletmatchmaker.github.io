@@ -22,7 +22,7 @@
     },
     {
       "name": "totalNodes",
-      "value": 54
+      "value": 51
     },
     {
       "name": "timelineHeight",
@@ -986,9 +986,6 @@
           },
           "encode": {
             "enter": {
-              "stroke": {
-                "value": "black"
-              },
               "cursor": {
                 "value": "pointer"
               },
@@ -1010,8 +1007,8 @@
               }
             },
             "update": {
-              "strokeOpacity": {
-                "value": 0
+              "fillOpacity": {
+                "value": 1
               },
               "fill": {
                 "scale": "similarityScore",
@@ -1019,8 +1016,8 @@
               }
             },
             "hover": {
-              "strokeOpacity": {
-                "value": 0.9
+              "fillOpacity": {
+                "value": 0.7
               }
             }
           }
@@ -1067,6 +1064,7 @@
             }
           }
         }
+        
       ]
     },
     {
@@ -1446,9 +1444,6 @@
           },
           "encode": {
             "enter": {
-              "stroke": {
-                "value": "black"
-              },
               "cursor": {
                 "value": "pointer"
               },
@@ -1473,8 +1468,8 @@
               }
             },
             "update": {
-              "strokeOpacity": {
-                "value": 0
+              "fillOpacity": {
+                "value": 1
               },
               "fill": {
                 "scale": "edgeStatusColor",
@@ -1482,8 +1477,47 @@
               }
             },
             "hover": {
-              "strokeOpacity": {
-                "value": 1
+              "fillOpacity": {
+                "value": 0.7
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "from": {
+            "data": "communication-total"
+          },
+          "encode": {
+            "enter": {
+              "fontSize": {
+                "value": 8
+              },
+              "align": {
+                "value": "center"
+              },
+              "baseline": {
+                "value": "bottom"
+              },
+              "fill": {
+                "value": "black"
+              }
+            },
+            "update": {
+              "xc": {
+                "scale": "xscale",
+                "field": "Status"  ,
+                "band": 0.5
+              },
+              "y": {
+                "scale": "yscale",
+                "field": "count",
+                "offset": {
+                  "value": 0
+                }
+              },
+              "text": {
+                "field": "count"
               }
             }
           }
@@ -1559,9 +1593,6 @@
   "title": {
     "text": {
       "signal": "candidateGraphFolder + ' / Matched ' + matchedNodes + '/' + totalNodes + '.'"
-    },
-    "subtitle": {
-      "signal": "'Green: ' + greenEdges + ', red: ' + redEdges + ', gray: ' + grayEdges"
     },
     "align": "right",
     "anchor": "end"
